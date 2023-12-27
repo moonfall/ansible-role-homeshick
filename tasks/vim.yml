@@ -6,11 +6,11 @@
   changed_when: false
   check_mode: no
 
-#- name: Install Vundle.
-#  git:
-#    repo: https://github.com/VundleVim/Vundle.vim
-#    dest: "~{{ dotfiles_username }}/.vim/bundle/Vundle.vim"
-#  when: vim_installed_result.rc == 0
+- name: Install Vundle.
+  git:
+    repo: https://github.com/gmarik/vundle
+    dest: "~{{ dotfiles_username }}/.homesick/repos/vundle"
+  when: vim_installed_result.rc == 0
 
 - name: Create vim directory.
   file:
@@ -19,28 +19,30 @@
     mode: "0700"
     owner: "{{ dotfiles_username }}"
 
-- name: Create VimPlug directory.
-  file:
-    path: "~{{ dotfiles_username }}/.vim/autoload"
-    state: directory
-    mode: "0700"
-    owner: "{{ dotfiles_username }}"
-
-- name: Install VimPlug.
-  get_url:
-    url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    dest: "~{{ dotfiles_username }}/.vim/autoload/plug.vim"
-  when: vim_installed_result.rc == 0
+#- name: Create VimPlug directory.
+#  file:
+#    path: "~{{ dotfiles_username }}/.vim/autoload"
+#    state: directory
+#    mode: "0700"
+#    owner: "{{ dotfiles_username }}"
+#
+#- name: Install VimPlug.
+#  get_url:
+#    url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+#    dest: "~{{ dotfiles_username }}/.vim/autoload/plug.vim"
+#  when: vim_installed_result.rc == 0
 
 - name: Install vim plugins.
   # Vundle command
-  # command: vim +PluginInstall +qall
+  command: vim +PluginInstall +qall
   # VimPlug command
-  command: vim +PlugInstall +qall
+  # command: vim +PlugInstall +qall
   when: clone_dotfiles_result.changed
         and vim_installed_result.rc == 0
 
   # Haven't found a way to clean unwanted plugins
   # idempotently.
-  # - name: clean vim plugins
-  #  command: vim +PlugClean +qall
+- name: Clean vim plugins
+  command: vim +PluginClean +qall
+  when: clone_dotfiles_result.changed
+        and vim_installed_result.rc == 0
