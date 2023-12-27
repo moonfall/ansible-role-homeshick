@@ -11,6 +11,9 @@
 
 - include_tasks: homeshick.yml
 
+- include_tasks: oh_my_zsh.yml
+  when: dotfiles_include_oh_my_zsh == true
+
 - include_tasks: vim.yml
 
 - include_tasks: liquidprompt.yml

@@ -22,6 +22,10 @@ dotfiles_repo_url: "{{ dotfiles_repo_url_ssh if dotfiles_use_ssh_url else dotfil
 
 dotfiles_force_clone: "{{ false if ansible_connection == 'local' else true }}"
 
+# Dotfiles may reference oh-my-zsh.
+# Add it as a homeshick "castle".
+dotfiles_include_oh_my_zsh: true
+
 # Dotfiles may reference PS1 values from liquidprompt.
 # Add it as a homeshick "castle".
 dotfiles_include_liquidprompt: true

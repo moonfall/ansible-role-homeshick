@@ -1,0 +1,5 @@
+---
+- name: Clone oh-my-zsh git repository.
+  git:
+    repo: "http://github.com/robbyrussell/oh-my-zsh"
+    dest: "~{{ dotfiles_username }}/.homesick/repos/oh-my-zsh"
