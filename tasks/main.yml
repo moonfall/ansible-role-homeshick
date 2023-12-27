@@ -5,13 +5,13 @@
     msg: >-
       Configuring dotfiles for user '{{ dotfiles_username }}'.
 
-- include: github_config.yml
+- include_tasks: github_config.yml
   when: dotfiles_repo_url.startswith('git@github.com')
   tags: github_config
 
-- include: homeshick.yml
+- include_tasks: homeshick.yml
 
-- include: vim.yml
+- include_tasks: vim.yml
 
-- include: liquidprompt.yml
+- include_tasks: liquidprompt.yml
   when: dotfiles_include_liquidprompt == true
